@@ -30,21 +30,17 @@ public class Main_task1 {
     protected static final short ANSWER_TIME = 2_000;
 
     public static void main(String[] args) {
-        System.out.println(RESET_COLOR + "\tЗадача 1. Call-центр\n");
-        ExecutorService pool = Executors.newFixedThreadPool(NUM_OF_OPERATORS);
-        Station station = new Station();
+        System.out.println(RESET_COLOR + "\tЗадача 1. Колл-центр\n");
+        final ExecutorService pool = Executors.newFixedThreadPool(NUM_OF_OPERATORS);
+        final Station station = new Station();
 
-        Thread t = new Thread(station);
-        t.start();
+        new Thread(station).start();
         for (int i = 0; i < NUM_OF_OPERATORS; i++) {
             pool.submit(new Operator(station.getCalls()));
         }
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         pool.shutdown();
+        while (!pool.isTerminated());
+        System.out.println(RESET_COLOR + "Все звонки разобраны");
     }
 }
 

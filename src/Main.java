@@ -7,5 +7,6 @@ public class Main {
                 """);
 
         task1.Main_task1.main(null);
+        task2.Main_task2.main(null);
     }
 }
